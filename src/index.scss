@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-lt-pro-55");
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-5");
+
+$yellow: #fed215;
+
+$gradient-yellow: linear-gradient(0deg, $yellow 30.56%, #fff 87.5%);
+$gradient-blue: linear-gradient(180deg, #4e8bce 0%, #1a4fe9 100%);
+
+.text-gradient {
+  font-family: "Helvetica Neue LT Pro";
+  background: $gradient-yellow;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-yellow {
+  background: $gradient-yellow;
+}
+
+.hovered-btn:hover {
+  background: $yellow;
+}
+
+.leadrboard-item {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.gradient-border-wrapper {
+  position: relative;
+  border-radius: 12px;
+}
+
+.gradient-border-wrapper {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* border width */
+    border-radius: inherit;
+    background: white;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  &:hover {
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 2px; /* border width */
+      border-radius: inherit;
+      background: $gradient-yellow; /* you gradient */
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+  }
+}
+
+.modal-input {
+  width: 100%;
+  padding: 16px 13px;
+  border: 1px solid white;
+  border-radius: 13px;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+  &::placeholder {
+    color: #92b2ff;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: $gradient-blue;
+  color: white;
+}
+
+/* Gradient layer before content */
+.water-plane-container {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  mix-blend-mode: soft-light;
+}
+
+.top-icon-wrapper {
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  cursor: pointer;
+}
+.counter-container {
+  text-align: center;
+  font-family: "Helvetica Neue LT Pro";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 750;
+  line-height: 36px; /* 128.571% */
+  letter-spacing: -0.336px;
+  background: $gradient-yellow;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.energy-bar-container {
+  width: 215px;
+}
+
+.energy-bar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+}
+
+.energy-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #fed215 100%);
+  border-radius: 10px;
+}
+
+.energy-text {
+  font-family: "Helvetica Neue";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 2em;
+}
+
+.clicker-conteiner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  background: $gradient-yellow;
+}
+
+.clicker-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  background-color: #5396e9;
+}
+
+.finger-icon {
+  width: 67px;
+  height: 67px;
+  &.scale-animation {
+    transform: scale(1.3);
+  }
+  transition: transform 0.15s ease-in-out;
+}
+
+.tap-visual-item-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  animation: translate 2.1s infinite linear;
+  width: 100px;
+}
+.tap-visual-item {
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  transform: translateX(-20%);
+
+  opacity: 1;
+  animation: floatUp 0.5s alternate infinite ease-in-out;
+
+  color: #fff;
+  font-family: "Helvetica Neue";
+  font-size: 48px;
+  letter-spacing: 3.84px;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateX(20%);
+  }
+}
+
+@keyframes translate {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -150px) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -300px) scale(0);
+    opacity: 0;
+  }
+}
+
+// Modal styles
+.modal-container {
+  font-family: "Helvetica Neue";
+  background: $gradient-blue;
+}

@@ -1,0 +1,23 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="wallet-svgrepo-com 1" clip-path="url(#clip0_7764_1937)">
+<g id="Group">
+<g id="Group_2">
+<path id="Vector" d="M26.623 7.76688L25.288 2.87575L20.7517 4.11385L18.862 0.299438L3.78916 7.76688H0V31.7006H29.942V25.2496H32V14.1087H29.942V7.76688H26.623ZM23.7137 5.63201L24.2964 7.76692H22.5615H20.0567H15.8915L19.5606 6.76551L21.767 6.1633L23.7137 5.63201ZM27.6975 29.4561H2.24449V17.2318V12.9696V12.6318V10.3283V10.0114H3.40571H4.31467H7.66793H21.1687H23.6736H24.909H26.0723H27.2356H27.6975V11.7037V14.1087H27.1906H26.0273H23.1276H18.0717H16.2491V15.0116V17.5164V17.8055V18.9688V20.1321V25.2495H27.6975V29.456H27.6975V29.4561ZM29.7555 23.0051H28.8197H27.6974H18.4936V19.5196V18.3563V17.193V16.4045V16.3532H18.5972H21.5707H25.8329H27.6975H28.8198H28.9665H29.7555V23.0051ZM17.8472 3.30702L18.5453 4.71603L10.6581 6.86869L17.8472 3.30702Z" fill="url(#paint0_linear_7764_1937)"/>
+<path id="Vector_2" d="M20.2712 18.6349V19.0345V20.8326H22.469V18.6349H21.7352H20.2712Z" fill="url(#paint1_linear_7764_1937)"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_7764_1937" x1="18.2222" y1="22.1058" x2="18.2222" y2="4.22458" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FED215"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint1_linear_7764_1937" x1="21.5227" y1="20.1611" x2="21.5227" y2="18.9096" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FED215"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<clipPath id="clip0_7764_1937">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
