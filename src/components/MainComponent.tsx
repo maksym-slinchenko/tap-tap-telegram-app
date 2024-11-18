@@ -8,14 +8,26 @@ import RefferalModal from "./ReferralModal";
 import LeaderboardModal from "./LeaderboardModal";
 import ConnectWalletModal from "./ConnectWalletModal";
 import SuccessModal from "./SuccessModal";
-import { maxEnergy, boosterValue } from "../app.config";
+import {
+  maxEnergy,
+  boosterValue,
+  samePointDistance,
+  controlTapNumber,
+} from "../app.config";
 
 type TProps = {
   onTap: (bool: boolean) => void;
   tapState: boolean;
   isBoosterActive: boolean;
 };
+
 export type TModal = "leaderboard" | "referral" | "wallet" | "success";
+
+type ClickData = {
+  time: number;
+  x: number;
+  y: number;
+};
 
 const MainComponent: React.FC<TProps> = ({
   onTap,
@@ -23,6 +35,7 @@ const MainComponent: React.FC<TProps> = ({
   isBoosterActive,
 }) => {
   const lastClickCoordinates = useRef({ x: 0, y: 0 });
+  const clickTracker = useRef<ClickData[]>([]);
 
   const [tapCounter, setTapCounter] = useState(0);
   const [energy, setEnergy] = useState(maxEnergy);
@@ -34,6 +47,7 @@ const MainComponent: React.FC<TProps> = ({
   };
 
   useEffect(() => {
+    // Energy regeneration
     const interval = setInterval(() => {
       if (energy < maxEnergy) {
         setEnergy((prev) => prev + 1);
@@ -44,53 +58,67 @@ const MainComponent: React.FC<TProps> = ({
 
   const handleTap = useCallback(
     (e: React.MouseEvent) => {
-      if (energy <= 0) {
+      if (energy <= 0) return;
+
+      // Check throttling
+      if (isThrottled) {
         return;
       }
 
       const currentX = e.clientX;
       const currentY = e.clientY;
 
-      if (isThrottled) {
-        if (
-          Math.abs(currentX - lastClickCoordinates.current.x) < 5 &&
-          Math.abs(currentY - lastClickCoordinates.current.y) < 5
-        ) {
-          return;
-        }
+      const now = Date.now();
+
+      // Initialize click storage if it doesn't exist
+      const clicks = clickTracker?.current || [];
+
+      // Keep only clicks from the last second
+      while (clicks.length > 0 && now - clicks[0].time > 1000) {
+        clicks.shift();
       }
-      lastClickCoordinates.current = { x: currentX, y: currentY };
+
+      // If there are more than {samePointDistance} clicks per second at the same point, block
+      const samePointClicks = clicks.filter(
+        (click) =>
+          Math.abs(click.x - currentX) < samePointDistance &&
+          Math.abs(click.y - currentY) < samePointDistance
+      );
+
+      if (samePointClicks.length >= controlTapNumber) {
+        return;
+      }
+
+      // Add the current click to storage
+      clicks.push({ time: now, x: currentX, y: currentY });
 
       setIsThrottled(true);
-      const timeout1 = setTimeout(() => setIsThrottled(false), 100);
+      setTimeout(() => setIsThrottled(false), 100); // 0.1 seconds
 
+      // Save click coordinates
+      lastClickCoordinates.current = { x: currentX, y: currentY };
+
+      // Decrease energy
       setEnergy((prev) => prev - 1);
 
+      // Increase tap counter
       setTapCounter((prev) => prev + 1 * (isBoosterActive ? boosterValue : 1));
 
+      // Click animation
       const newElementWrapper = document.createElement("div");
       newElementWrapper.className = "tap-visual-item-wrapper";
-      newElementWrapper.style.top = `${e.clientY}px`;
-      newElementWrapper.style.left = `${e.clientX}px`;
+      newElementWrapper.style.top = `${currentY}px`;
+      newElementWrapper.style.left = `${currentX}px`;
 
       const newElement = document.createElement("span");
       newElement.className = "tap-visual-item";
       newElement.innerText = `+${isBoosterActive ? boosterValue : 1}`;
+      newElementWrapper.appendChild(newElement);
 
-      newElementWrapper?.appendChild(newElement);
-      // Add to DOM
       const app = document.querySelector(".app");
       app?.appendChild(newElementWrapper);
 
-      // Remove after animation ends
-      const timeout2 = setTimeout(() => {
-        app?.removeChild(newElementWrapper);
-      }, 2000); // Time should be little less than the animation time in scss
-      // to avoid re-displaying the element on the starting position
-      return () => {
-        clearTimeout(timeout1);
-        clearTimeout(timeout2);
-      };
+      setTimeout(() => app?.removeChild(newElementWrapper), 2000);
     },
     [energy, isBoosterActive, isThrottled]
   );

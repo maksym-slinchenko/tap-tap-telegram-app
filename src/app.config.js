@@ -7,4 +7,6 @@ module.exports = {
   leftAnimationTime: 500, // Time in ms when coin is disappearing
   maxEnergy: 1000, // Maximum energy
   speedFactor: 3, // Coefficient to control the speed of the waves
+  samePointDistance: 5, // Distance between points to be considered as the same
+  controlTapNumber: 5, // Number of taps on the same point per second to cancel the click event
 };

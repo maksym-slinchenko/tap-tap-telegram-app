@@ -11,7 +11,6 @@ import {
 
 const [start, end] = firstRandomBoosterActivInterval;
 const firstRandomActivationTime = Math.random() * (end - start) + start;
-console.log("🚀 ~ firstRandomActivationTime:", firstRandomActivationTime);
 
 function App() {
   const [tapState, setTapState] = useState(false);
